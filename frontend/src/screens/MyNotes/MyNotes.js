@@ -7,7 +7,7 @@ import "./MyNotes.css";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNoteAction, listNotes } from "../../actions/noteActions";
+import { deleteNoteAction, listUserNotes } from "../../actions/noteActions";
 
 const MyNotes = ({search}) => {
   let navigate = useNavigate();
@@ -37,7 +37,7 @@ const MyNotes = ({search}) => {
   console.log(notes);
 
   useEffect(() => {
-    dispatch(listNotes());
+    dispatch(listUserNotes());
     if (!userInfo) {
       navigate("/usernotes");
     }

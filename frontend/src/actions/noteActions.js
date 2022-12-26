@@ -14,7 +14,7 @@ import {
 } from "../constants/noteConstants";
 import axios from "axios";
 
-export const listNotes = () => async (dispatch, getState) => {
+export const listUserNotes = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: NOTES_LIST_REQUEST,
