@@ -1,0 +1,15 @@
+.blog-post {
+    animation: fadeIn 1s;
+    /*background-image: url(/home/krko/Music/react_training/mern_notes_app/frontend/src/drzewo.png);*/
+  }
+ 
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

@@ -1,0 +1,14 @@
+.main {
+    min-height: 93vh;
+    display:flex;
+    align-items:center;
+    /*background-image: url(/home/pako/Pobrane/mern_notes_app2-master/frontend/src/drzewo.png);*/
+    background-position: center;
+    background-size: cover;
+}
+
+@media only screen and (min-width: 768px){
+    .buttonContainer{
+        padding: 0 200px
+    }
+}
