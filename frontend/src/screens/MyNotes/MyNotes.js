@@ -39,7 +39,7 @@ const MyNotes = ({search}) => {
   useEffect(() => {
     dispatch(listNotes());
     if (!userInfo) {
-      navigate("/");
+      navigate("/usernotes");
     }
   }, [dispatch, successCreate,navigate,userInfo ,successUpdate,successDelete]);
   //HERE, WHERE IM FILTERING THE NOTES, IF IM GOING TO MAKE REWIERS, THEN I COULD ADD THE CONTENT OF THE REWIEVS OR OTHER SCHEMA ELEMENTS TO MAKE THE SEARCHING MORE ACCESIBLE
