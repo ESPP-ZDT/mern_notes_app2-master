@@ -1,7 +1,7 @@
 const Note = require("../models/noteModel");
 const asyncHandler = require("express-async-handler");
 
-const getNotes = asyncHandler(async (req, res) => {
+const getUserNotes = asyncHandler(async (req, res) => {
   const notes = await Note.find({ user: req.user._id });
   res.json(notes);
 });
@@ -72,4 +72,4 @@ const deleteNote = asyncHandler(async (req, res) => {
     }
   });
 
-module.exports = { getNotes, createNote, getNoteById, updateNote, deleteNote };
+module.exports = { getUserNotes, createNote, getNoteById, updateNote, deleteNote };
