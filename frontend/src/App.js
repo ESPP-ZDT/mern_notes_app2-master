@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/login" element={<LoginScreen />} exact />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/register" element={<RegisterScreen />} exact />
-          <Route path="/mynotes" element={<MyNotes search={search} />} />
+          <Route path="/mynotes" element={<MyNotes search={search} />} exact/>
           <Route path="/note/:id" element={<UpdateNoteScreen />} />
           <Route path="/createnote" element={<CreateNoteScreen />} exact />
         </Routes>
