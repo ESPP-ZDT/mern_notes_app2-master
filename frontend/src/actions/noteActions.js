@@ -48,6 +48,32 @@ export const listUserNotes = () => async (dispatch, getState) => {
   }
 };
 
+export const listAllNotes = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: NOTES_LIST_REQUEST,
+    });
+
+    
+
+    const { data } = await axios.get(`/api/notes`);
+
+    dispatch({
+      type: NOTES_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: NOTES_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
 export const createNoteAction =
   (title, content, category) => async (dispatch, getState) => {
     try {

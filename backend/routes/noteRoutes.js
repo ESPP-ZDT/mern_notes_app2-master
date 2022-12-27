@@ -5,8 +5,8 @@ const {protect} = require('../middlewares/authMiddleware')
 
 const router = express.Router();
 
-router.route("/").get( getNotes);//usernotes??
-router.route("/usernotes").get(protect,getNotes);//usernotes??
+router.route("/").get(getNotes);//usernotes??
+router.route("/usernotes").get(protect,getUserNotes);//usernotes??
 router.route("/create").post(protect, createNote);
 router.route("/:id").get(protect,getNoteById).put(protect, updateNote).delete(protect,deleteNote);
 

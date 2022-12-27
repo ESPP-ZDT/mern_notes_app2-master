@@ -24,9 +24,9 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/notes", noteRoutes);
 
-app.get("/api/notes", cors(), (req, res) => {
-  res.json(notes);
-});
+//app.get("/api/notes", cors(), (req, res) => {
+  //res.json(notes);
+//});
 
 app.use(notFound);
 app.use(errorHandler);

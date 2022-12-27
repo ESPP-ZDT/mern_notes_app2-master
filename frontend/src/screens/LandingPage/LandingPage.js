@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNoteAction, listUserNotes } from "../../actions/noteActions";
+import { deleteNoteAction, listAllNotes } from "../../actions/noteActions";
 
 const LandingPage = () => {
   let navigate = useNavigate();
@@ -15,50 +15,16 @@ const LandingPage = () => {
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  const noteCreate = useSelector((state) => state.noteCreate);
-  const { success: successCreate } = noteCreate;
-
-  const noteUpdate = useSelector((state) => state.noteUpdate);
-  const { success: successUpdate } = noteUpdate;
-
-  const noteDelete = useSelector((state) => state.noteDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = noteDelete;
-
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteNoteAction(id));
-    }
-  };
-
-  console.log(notes);
-
   useEffect(() => {
-    dispatch(listUserNotes());
-    if (!userInfo) {
-      navigate("/");
-    }
-  }, [
-    dispatch,
-    successCreate,
-    navigate,
-    userInfo,
-    successUpdate,
-    successDelete,
-  ]);
+    dispatch(listAllNotes());
+
+    navigate("/");
+  }, [dispatch, navigate]);
   //HERE, WHERE IM FILTERING THE NOTES, IF IM GOING TO MAKE REWIERS, THEN I COULD ADD THE CONTENT OF THE REWIEVS OR OTHER SCHEMA ELEMENTS TO MAKE THE SEARCHING MORE ACCESIBLE
   //
   return (
     <div>
       <MainScreen title={`Welcome`}>
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {loading && <Loading />}
         {notes?.reverse().map((note) => (
           <Card key={note._id}>
             <Card.Header style={{ display: "flex" }}>
