@@ -19,13 +19,17 @@ const LandingPage = () => {
   const { userInfo } = userLogin;
 
   const noteCreate = useSelector((state) => state.noteCreate);
-  const { success :successCreate } = noteCreate;
+  const { success: successCreate } = noteCreate;
 
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { success: successUpdate } = noteUpdate;
-  
+
   const noteDelete = useSelector((state) => state.noteDelete);
-  const { loading: loadingDelete, error: errorDelete, success:successDelete } = noteDelete;
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = noteDelete;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
@@ -38,34 +42,28 @@ const LandingPage = () => {
   useEffect(() => {
     dispatch(listUserNotes());
     if (!userInfo) {
-      navigate("/allnotes");
+      navigate("/");
     }
-  }, [dispatch, successCreate,navigate,userInfo ,successUpdate,successDelete]);
+  }, [
+    dispatch,
+    successCreate,
+    navigate,
+    userInfo,
+    successUpdate,
+    successDelete,
+  ]);
   //HERE, WHERE IM FILTERING THE NOTES, IF IM GOING TO MAKE REWIERS, THEN I COULD ADD THE CONTENT OF THE REWIEVS OR OTHER SCHEMA ELEMENTS TO MAKE THE SEARCHING MORE ACCESIBLE
   //
   return (
     <div>
       <MainScreen title={`Welcome`}>
-
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {loading && <Loading />}
         {notes?.reverse().map((note) => (
           <Card key={note._id}>
             <Card.Header style={{ display: "flex" }}>
               <span className="reviewtitle">{note.title}</span>
-              <div>
-                <Button variant="succes" size="xs" className="mx-2">
-                  <Link to={`/note/${note._id}`}>edit note</Link>
-                </Button>
-                <Button
-                  variant="danger"
-                  size="xs"
-                  className="mx-2"
-                  onClick={() => deleteHandler(note._id)}
-                >
-                  delete note
-                </Button>
-              </div>
+              <div></div>
             </Card.Header>
             <Card.Body>
               <h4>
