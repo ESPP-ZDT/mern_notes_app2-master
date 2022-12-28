@@ -19,6 +19,8 @@ const noteSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+    
   },
   {
     timestamps: true,

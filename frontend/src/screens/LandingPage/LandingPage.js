@@ -29,7 +29,7 @@ const LandingPage = () => {
           <Card key={note._id}>
             <Card.Header style={{ display: "flex" }}>
               <span className="reviewtitle">{note.title}</span>
-              <div></div>
+              <div>{note.likes.length} likes</div>
             </Card.Header>
             <Card.Body>
               <h4>
