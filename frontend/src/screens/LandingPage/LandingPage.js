@@ -14,7 +14,7 @@ const LandingPage = () => {
   const[loadLike,setLoadLike] = useState(false)
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const {auth} = useSelector(state => state)
+  // const {auth} = useSelector(state => state)
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
@@ -30,7 +30,7 @@ const handleLike = async() =>{
   if(loadLike) return;
   setIsLike(true)
   setLoadLike(true)
-  await dispatch(likeNote(notes._id, auth.user._id))
+  await dispatch(likeNote(notes._id))
   setLoadLike(false)
 
 }
@@ -50,10 +50,7 @@ const handleUnlike = () =>{
               isLike={isLike}
               handleLike={handleLike}
               handleUnlike={handleUnlike}
-              note={note}
-              
-
-              /> </div>
+              note={note}/> </div>
             </Card.Header>
             <Card.Body>
               <h4>

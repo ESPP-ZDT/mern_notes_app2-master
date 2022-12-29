@@ -13,7 +13,8 @@ router.route("/:id").get(protect,getNoteById).put(protect, updateNote).delete(pr
 
 router.put("/:id/like",protect, async (req, res) => {
     try {
-      const note = await Note.findById(req.params.id);
+      const noteId = req.params.id;
+      const note = await Note.findById(noteId);
       if (!note) return res.status(404).send("Note not found");
   
       const userId = req.body.userId;

@@ -204,6 +204,8 @@ export const likeNote = (noteId) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
+    const data = localStorage.getItem("userInfo");
+
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -211,7 +213,7 @@ export const likeNote = (noteId) => async (dispatch, getState) => {
     };
 
     // Send a PUT request to the backend to update the likes of the specific note
-    const res = await axios.patch(`/api/notes/${noteId}/like`, {}, config);
+    const res = await axios.patch(`/api/notes/${noteId}/like`, {userId:data._id}, config);
     dispatch({ type: LIKE_NOTE_SUCCESS, payload: res.data });
   } catch (error) {
     const message =
