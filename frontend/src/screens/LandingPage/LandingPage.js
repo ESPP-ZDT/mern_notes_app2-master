@@ -30,7 +30,7 @@ const handleLike = async() =>{
   if(loadLike) return;
   setIsLike(true)
   setLoadLike(true)
-  await dispatch(likeNote(notes, auth))
+  await dispatch(likeNote(notes._id, auth.user._id))
   setLoadLike(false)
 
 }

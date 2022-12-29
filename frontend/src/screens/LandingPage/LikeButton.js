@@ -4,31 +4,24 @@ import { likeNote } from "../../actions/noteActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
-const LikeButton = ({isLike, handleLike,handleUnlike,noteId, userId }) => {
+const LikeButton = ({ isLike, handleLike, handleUnlike, noteId, userId }) => {
   // Use useSelector to get the likes for the given note from the state
   const likes = useSelector((state) => state.noteLike.likes[noteId]); // Access likes for specific note using the noteId
   const dispatch = useDispatch();
 
-  
+  const handleClick = () => {
+    dispatch(likeNote(noteId));
+  };
 
   return (
-    <>
-
-    {
-        isLike
-        ? <FontAwesomeIcon icon={faThumbsUp} onClick={handleUnlike}/>
-        : <FontAwesomeIcon icon={faThumbsDown} onClick={handleLike}/>
-    }
-
-    {/*
-    <button onClick={handleLike}>
-      {likes.includes(userId) ? (
-        <FontAwesomeIcon icon={faThumbsUp} />
+    <button onClick={handleClick}>
+      {isLike ? (
+        <FontAwesomeIcon icon={faThumbsUp} onClick={handleUnlike}/>
       ) : (
-        <FontAwesomeIcon icon={faThumbsDown} />
+        <FontAwesomeIcon icon={faThumbsDown} onClick={handleLike}/>
       )}
     </button>
   );
 };
-*/}</>)}
+
 export default LikeButton;

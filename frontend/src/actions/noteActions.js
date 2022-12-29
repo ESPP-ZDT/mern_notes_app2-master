@@ -193,59 +193,34 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
 };
 
 
-export const likeNote2 = (id, userId,{notes, auth}) => {
-  console.log(newNote);
-  const newNote = {...notes, likes:[...notes.likes]}
-  
-  return async (dispatch) => {
-    try {
-      dispatch({ type: LIKE_NOTE_REQUEST });
 
-      const { data } = await axios.put(`/api/notes/${id}/like`, { userId });
+export const likeNote = (noteId) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: LIKE_NOTE_REQUEST,
+    });
 
-      dispatch({ type: LIKE_NOTE_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({ type: LIKE_NOTE_FAIL, payload: error.message });
-    }
-  };
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    // Send a PUT request to the backend to update the likes of the specific note
+    const res = await axios.patch(`/api/notes/${noteId}/like`, {}, config);
+    dispatch({ type: LIKE_NOTE_SUCCESS, payload: res.data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: LIKE_NOTE_FAIL,
+      payload: message,
+    });
+  }
 };
-
-export const likeNote =
-  (id, likes) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: LIKE_NOTE_REQUEST,
-      });
-
-      const {
-        userLogin: { userInfo },
-      } = getState();
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-
-      const { data } = await axios.put(
-        `/api/notes/${id}`,
-        { likes },
-        config
-      );
-
-      dispatch({
-        type: LIKE_NOTE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({
-        type: LIKE_NOTE_FAIL,
-        payload: message,
-      });
-    }
-  };
