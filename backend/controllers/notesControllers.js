@@ -77,4 +77,6 @@ const deleteNote = asyncHandler(async (req, res) => {
     }
   });
 
+
+  
 module.exports = { getUserNotes, createNote, getNoteById, updateNote, deleteNote, getNotes };

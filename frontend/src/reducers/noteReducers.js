@@ -11,6 +11,7 @@ import {
   NOTES_LIST_FAIL,
   NOTES_LIST_REQUEST,
   NOTES_LIST_SUCCESS,
+  LIKE_NOTE_SUCCESS
 } from "../constants/noteConstants";
 
 export const noteListReducer = (state = { notes: [] }, action) => {
@@ -64,6 +65,28 @@ export const noteDeleteReducer = (state = {}, action) => {
     case NOTES_DELETE_FAIL:
       return { loading: false, error: action.payload, success: false };
 
+    default:
+      return state;
+  }
+};
+
+const initialState = {
+  likes: []
+}
+
+
+export const noteLikeReducer = (state = initialState, action) => {
+  console.log(state);
+  switch (action.type) {
+    case LIKE_NOTE_SUCCESS:
+      return {
+        ...state,
+        likes: {
+          ...state.likes,
+          [action.payload.noteId]: action.payload.likes,
+        },
+      };
+    // Other cases for different actions
     default:
       return state;
   }

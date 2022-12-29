@@ -6,11 +6,15 @@ import Card from "react-bootstrap/Card";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteNoteAction, listAllNotes } from "../../actions/noteActions";
+import { deleteNoteAction, listAllNotes, likeNote } from "../../actions/noteActions";
+import LikeButton from "./LikeButton";
 
 const LandingPage = () => {
+  const[isLike,setIsLike] = useState(false)
+  const[loadLike,setLoadLike] = useState(false)
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const {auth} = useSelector(state => state)
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
@@ -22,14 +26,34 @@ const LandingPage = () => {
   }, [dispatch, navigate]);
   //HERE, WHERE IM FILTERING THE NOTES, IF IM GOING TO MAKE REWIERS, THEN I COULD ADD THE CONTENT OF THE REWIEVS OR OTHER SCHEMA ELEMENTS TO MAKE THE SEARCHING MORE ACCESIBLE
   //
+const handleLike = async() =>{
+  if(loadLike) return;
+  setIsLike(true)
+  setLoadLike(true)
+  await dispatch(likeNote(notes, auth))
+  setLoadLike(false)
+
+}
+const handleUnlike = () =>{
+  setIsLike(false)
+}
+
   return (
     <div>
       <MainScreen title={`Welcome`}>
-        {notes?.reverse().map((note) => (
+        {notes?.map((note) => (
           <Card key={note._id}>
             <Card.Header style={{ display: "flex" }}>
               <span className="reviewtitle">{note.title}</span>
               <div>{note.likes.length} likes</div>
+              <div><LikeButton
+              isLike={isLike}
+              handleLike={handleLike}
+              handleUnlike={handleUnlike}
+              note={note}
+              
+
+              /> </div>
             </Card.Header>
             <Card.Body>
               <h4>

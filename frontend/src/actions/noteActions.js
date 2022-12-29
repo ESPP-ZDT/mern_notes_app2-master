@@ -11,6 +11,10 @@ import {
   NOTES_UPDATE_FAIL,
   NOTES_UPDATE_REQUEST,
   NOTES_UPDATE_SUCCESS,
+  LIKE_NOTE_SUCCESS,
+  LIKE_NOTE_REQUEST,
+  LIKE_NOTE_FAIL
+
 } from "../constants/noteConstants";
 import axios from "axios";
 
@@ -187,3 +191,61 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+
+export const likeNote2 = (id, userId,{notes, auth}) => {
+  console.log(newNote);
+  const newNote = {...notes, likes:[...notes.likes]}
+  
+  return async (dispatch) => {
+    try {
+      dispatch({ type: LIKE_NOTE_REQUEST });
+
+      const { data } = await axios.put(`/api/notes/${id}/like`, { userId });
+
+      dispatch({ type: LIKE_NOTE_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: LIKE_NOTE_FAIL, payload: error.message });
+    }
+  };
+};
+
+export const likeNote =
+  (id, likes) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: LIKE_NOTE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/notes/${id}`,
+        { likes },
+        config
+      );
+
+      dispatch({
+        type: LIKE_NOTE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: LIKE_NOTE_FAIL,
+        payload: message,
+      });
+    }
+  };
