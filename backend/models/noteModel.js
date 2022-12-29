@@ -20,8 +20,15 @@ const noteSchema = mongoose.Schema(
       ref: "User",
     },
     likes: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
-    
+    rating: {
+      type: Number,
+      default: 0,
+    },
   },
+  
+    
+
+  
   {
     timestamps: true,
   }

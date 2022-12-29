@@ -1,0 +1,73 @@
+
+
+
+
+
+  const Comment = require("../models/commentModel");
+  const asyncHandler = require("express-async-handler");
+
+  const createComment = asyncHandler(async (req, res) => {
+    const { content, noteId } = req.body;
+  
+    if (!content || !noteId) {
+      res.status(400);
+      throw new Error("Please fill all the required fields");
+    }
+  
+    const note = await Note.findById(noteId);
+    if (!note) {
+      res.status(404);
+      throw new Error("Note not found");
+    }
+  
+    const comment = new Comment({ content, user: req.user._id, note: noteId });
+    await comment.save();
+  
+    res.status(201).json(comment);
+  });
+  
+  const getCommentsByNoteId = asyncHandler(async (req, res) => {
+    const comments = await Comment.find({ note: req.params.id });
+    res.json(comments);
+  });
+  
+  const updateComment = asyncHandler(async (req, res) => {
+    const { text } = req.body;
+  
+    const comment = await Comment.findById(req.params.id);
+  
+    if (comment.user.toString() !== req.user._id.toString()) {
+      res.status(401);
+      throw new Error("You can't perform this action");
+    }
+  
+    if (comment) {
+      comment.text = text;
+  
+      const updatedComment = await comment.save();
+      res.json(updatedComment);
+    } else {
+      res.status(404);
+      throw new Error("Comment not found");
+    }
+  });
+  
+  const deleteComment = asyncHandler(async (req, res) => {
+    const comment = await Comment.findById(req.params.id);
+  
+    if (comment.user.toString() !== req.user._id.toString()) {
+      res.status(401);
+      throw new Error("You can't perform this action");
+    }
+  
+    if (comment) {
+      await comment.remove();
+      res.json({ message: "Comment removed" });
+    } else {
+      res.status(404);
+      throw new Error("Comment not found");
+    }
+  });
+  
+  module.exports = { getCommentsByNoteId, updateComment, deleteComment, createComment };
+  
