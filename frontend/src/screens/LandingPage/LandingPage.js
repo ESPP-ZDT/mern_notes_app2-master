@@ -68,7 +68,7 @@ const handleUnlike = () =>{
                 </footer>
               </blockquote>
             </Card.Body>
-            <Comments noteId={noteId}/>
+            <Comments noteId={note._id} />
           </Card>
         ))}
       </MainScreen>
