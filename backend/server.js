@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const noteRoutes = require("./routes/noteRoutes");
+const commentRoutes = require("./routes/commentRoutes")
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
 const app = express();
@@ -23,6 +24,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/notes", noteRoutes);
+app.use("/api/comments", commentRoutes);
+
 
 //app.get("/api/notes", cors(), (req, res) => {
   //res.json(notes);

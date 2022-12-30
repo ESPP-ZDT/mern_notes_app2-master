@@ -4,7 +4,6 @@ const { protect } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-// Create a comment for a specific note
 router.route("/create").post(protect, createComment);
 
 // Get all comments for a specific note

@@ -10,7 +10,7 @@ import { deleteNoteAction, listAllNotes, likeNote } from "../../actions/noteActi
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
 
-const LandingPage = () => {
+const LandingPage = ({noteId}) => {
   const[isLike,setIsLike] = useState(false)
   const[loadLike,setLoadLike] = useState(false)
   let navigate = useNavigate();
@@ -68,7 +68,7 @@ const handleUnlike = () =>{
                 </footer>
               </blockquote>
             </Card.Body>
-            <Comments/>
+            <Comments noteId={noteId}/>
           </Card>
         ))}
       </MainScreen>
