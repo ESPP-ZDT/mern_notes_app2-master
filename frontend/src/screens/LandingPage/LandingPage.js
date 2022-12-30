@@ -8,6 +8,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteNoteAction, listAllNotes, likeNote } from "../../actions/noteActions";
 import LikeButton from "./LikeButton";
+import Comments from "./Comments";
 
 const LandingPage = () => {
   const[isLike,setIsLike] = useState(false)
@@ -67,6 +68,7 @@ const handleUnlike = () =>{
                 </footer>
               </blockquote>
             </Card.Body>
+            <Comments/>
           </Card>
         ))}
       </MainScreen>

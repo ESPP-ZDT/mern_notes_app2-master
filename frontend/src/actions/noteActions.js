@@ -13,8 +13,7 @@ import {
   NOTES_UPDATE_SUCCESS,
   LIKE_NOTE_SUCCESS,
   LIKE_NOTE_REQUEST,
-  LIKE_NOTE_FAIL
-
+  LIKE_NOTE_FAIL,
 } from "../constants/noteConstants";
 import axios from "axios";
 
@@ -57,8 +56,6 @@ export const listAllNotes = () => async (dispatch) => {
     dispatch({
       type: NOTES_LIST_REQUEST,
     });
-
-    
 
     const { data } = await axios.get(`/api/notes`);
 
@@ -192,8 +189,6 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
   }
 };
 
-
-
 export const likeNote = (noteId) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -213,7 +208,11 @@ export const likeNote = (noteId) => async (dispatch, getState) => {
     };
 
     // Send a PUT request to the backend to update the likes of the specific note
-    const res = await axios.patch(`/api/notes/${noteId}/like`, {userId:data._id}, config);
+    const res = await axios.patch(
+      `/api/notes/${noteId}/like`,
+      { userId: data._id },
+      config
+    );
     dispatch({ type: LIKE_NOTE_SUCCESS, payload: res.data });
   } catch (error) {
     const message =
