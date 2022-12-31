@@ -1,33 +1,34 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../actions/commentsActions";
+import { Card, ListGroup } from "react-bootstrap";
 
-const CommentList = ( {noteId} ) => {
-    
+const CommentList = ({ noteId }) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.commentsList.comments);
 
   useEffect(() => {
-    //console.log('Fetching comments for note', noteId);
     dispatch(fetchComments(noteId));
   }, [dispatch]);
-  
-  console.log(comments);
-  //console.log(noteId)
 
   return (
-    <div>
+    <Card>
+      <Card.Header>Comments</Card.Header>
       {comments && comments.length > 0 ? (
-        comments.map((comment) => (
-          <div key={comment._id}>
-            <p>{comment.content}</p>
-            <p>By {comment.user.name}</p>
-          </div>
-        ))
+        <ListGroup variant="flush">
+          {comments
+            .filter((comment) => comment.note.toString() === noteId.toString())
+            .map((comment) => (
+              <ListGroup.Item key={comment._id}>
+                <p>{comment.content}</p>
+                <p>By {comment.user.name}</p>
+              </ListGroup.Item>
+            ))}
+        </ListGroup>
       ) : (
-        <p>No comments found</p>
+        <Card.Body>No comments found</Card.Body>
       )}
-    </div>
+    </Card>
   );
 };
 
