@@ -1,16 +1,29 @@
-import * as commentConstants from "../constants/commentConstants";
+import {
+  COMMENTS_LIST_REQUEST,
+  COMMENTS_LIST_SUCCESS,
+  COMMENTS_LIST_FAIL,
+  COMMENTS_CREATE_REQUEST,
+  COMMENTS_CREATE_SUCCESS,
+  COMMENTS_CREATE_FAIL,
+  COMMENTS_UPDATE_REQUEST,
+  COMMENTS_UPDATE_SUCCESS,
+  COMMENTS_UPDATE_FAIL,
+  COMMENTS_DELETE_REQUEST,
+  COMMENTS_DELETE_SUCCESS,
+  COMMENTS_DELETE_FAIL,
+} from "../constants/commentConstants";
 import axios from "axios";
 
 export const fetchComments = (noteId) => async (dispatch) => {
   try {
     dispatch({
-      type: commentConstants.COMMENTS_LIST_REQUEST,
+      type: COMMENTS_LIST_REQUEST,
     });
-    console.log(noteId)
+    //console.log(noteId)
     const { data } = await axios.get(`api/comments/${noteId}`);
     console.log("Fetched comments", data);
     dispatch({
-      type: commentConstants.COMMENTS_LIST_SUCCESS,
+      type: COMMENTS_LIST_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -19,7 +32,7 @@ export const fetchComments = (noteId) => async (dispatch) => {
         ? error.response.data.message
         : error.message;
     dispatch({
-      type: commentConstants.COMMENTS_LIST_FAIL,
+      type: COMMENTS_LIST_FAIL,
       payload: message,
     });
   }
@@ -30,7 +43,7 @@ export const createComment =
   (content, noteId) => async (dispatch, getState) => {
     try {
       dispatch({
-        type: commentConstants.COMMENTS_CREATE_REQUEST,
+        type: COMMENTS_CREATE_REQUEST,
       });
 
       const {
@@ -53,7 +66,7 @@ export const createComment =
       );
 
       dispatch({
-        type: commentConstants.COMMENTS_CREATE_SUCCESS,
+        type: COMMENTS_CREATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
@@ -62,7 +75,7 @@ export const createComment =
           ? error.response.data.message
           : error.message;
       dispatch({
-        type: commentConstants.COMMENTS_CREATE_FAIL,
+        type: COMMENTS_CREATE_FAIL,
         payload: message,
       });
     }
@@ -72,7 +85,7 @@ export const updateComment =
   (commentId, content) => async (dispatch, getState) => {
     try {
       dispatch({
-        type: commentConstants.COMMENTS_UPDATE_REQUEST,
+        type: COMMENTS_UPDATE_REQUEST,
       });
 
       const {
@@ -92,7 +105,7 @@ export const updateComment =
       );
 
       dispatch({
-        type: commentConstants.COMMENTS_UPDATE_SUCCESS,
+        type: COMMENTS_UPDATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
@@ -101,7 +114,7 @@ export const updateComment =
           ? error.response.data.message
           : error.message;
       dispatch({
-        type: commentConstants.COMMENTS_UPDATE_FAIL,
+        type: COMMENTS_UPDATE_FAIL,
         payload: message,
       });
     }
@@ -110,7 +123,7 @@ export const updateComment =
 export const deleteComment = (commentId) => async (dispatch, getState) => {
   try {
     dispatch({
-      type: commentConstants.COMMENTS_DELETE_REQUEST,
+      type: COMMENTS_DELETE_REQUEST,
     });
 
     const {
@@ -126,7 +139,7 @@ export const deleteComment = (commentId) => async (dispatch, getState) => {
     await axios.delete(`api/comments/${commentId}`, config);
 
     dispatch({
-      type: commentConstants.COMMENTS_DELETE_SUCCESS,
+      type: COMMENTS_DELETE_SUCCESS,
       payload: commentId,
     });
   } catch (error) {
@@ -135,7 +148,7 @@ export const deleteComment = (commentId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({
-      type: commentConstants.COMMENTS_DELETE_FAIL,
+      type: COMMENTS_DELETE_FAIL,
       payload: message,
     });
   }

@@ -28,7 +28,8 @@ const createComment = asyncHandler(async (req, res) => {
 });
 
 const getCommentsByNoteId = asyncHandler(async (req, res) => {
-  const comments = await Comment.find({ note: mongoose.Types.ObjectId(req.params.id) });
+  const comments = await Comment.find({});//here, if i change this, it shows me all the comments, but not per id
+  console.log(comments)
   res.json(comments);
 });
 

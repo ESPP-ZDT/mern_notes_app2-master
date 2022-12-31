@@ -2,18 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../actions/commentsActions";
 
-const CommentList = ({ noteId }) => {
+const CommentList = ( {noteId} ) => {
     
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.commentsList.comments);
 
   useEffect(() => {
-    console.log('Fetching comments for note', noteId);
+    //console.log('Fetching comments for note', noteId);
     dispatch(fetchComments(noteId));
-  }, [dispatch, noteId]);
+  }, [dispatch]);
   
   console.log(comments);
-  console.log(noteId)
+  //console.log(noteId)
 
   return (
     <div>

@@ -11,7 +11,7 @@ import LikeButton from "./LikeButton";
 import Comments from "./Comments";
 import CommentList from "./CommentsList";
 
-const LandingPage = ({noteId}) => {
+const LandingPage = () => {
   const[isLike,setIsLike] = useState(false)
   const[loadLike,setLoadLike] = useState(false)
   let navigate = useNavigate();

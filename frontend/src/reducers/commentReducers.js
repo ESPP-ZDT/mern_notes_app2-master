@@ -15,11 +15,11 @@ import {
 
 const initialState = {
   comments: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
-export function commentListReducer(state= initialState, action) {
+export function commentListReducer(state = initialState, action) {
   switch (action.type) {
     case COMMENTS_LIST_REQUEST:
       return {...state, loading: true };

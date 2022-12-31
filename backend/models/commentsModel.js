@@ -14,7 +14,7 @@ const commentSchema = mongoose.Schema({
   },
   note: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+
     ref: "Note",
   },
 });
