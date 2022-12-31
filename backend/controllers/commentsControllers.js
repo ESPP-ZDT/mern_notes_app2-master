@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const createComment = asyncHandler(async (req, res) => {
   const { content, noteId } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
 
   if (!content || !noteId) {
     res.status(400);
@@ -21,7 +21,7 @@ const createComment = asyncHandler(async (req, res) => {
     return;
   }
 
-  const comment = new Comment({ content, user: req.user._id, note: noteId });
+  const comment = new Comment({ content, user: req.user._id, note: noteId, name: req.user.name });
   await comment.save();
 
   res.status(201).json(comment);
@@ -29,7 +29,7 @@ const createComment = asyncHandler(async (req, res) => {
 
 const getCommentsByNoteId = asyncHandler(async (req, res) => {
   const comments = await Comment.find({});//here, if i change this, it shows me all the comments, but not per id
-  console.log(comments)
+  console.log(comments) 
   res.json(comments);
 });
 

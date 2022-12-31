@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 
-
 const commentSchema = mongoose.Schema({
   content: {
     type: String,
@@ -17,6 +16,11 @@ const commentSchema = mongoose.Schema({
 
     ref: "Note",
   },
+  name:{
+    type: String,
+    required:false
+  }
+
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

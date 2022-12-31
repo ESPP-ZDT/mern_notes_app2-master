@@ -10,7 +10,7 @@ const CommentList = ({ noteId }) => {
   useEffect(() => {
     dispatch(fetchComments(noteId));
   }, [dispatch]);
-
+//zrobic kolowrotek ktory co 15 sek odczytuje na nowo liste komentarzy
   return (
     <Card>
       <Card.Header>Comments</Card.Header>
@@ -21,7 +21,7 @@ const CommentList = ({ noteId }) => {
             .map((comment) => (
               <ListGroup.Item key={comment._id}>
                 <p>{comment.content}</p>
-                <p>By {comment.user.name}</p>
+                <p>By {comment.name}</p>
               </ListGroup.Item>
             ))}
         </ListGroup>
