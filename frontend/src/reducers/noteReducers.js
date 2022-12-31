@@ -76,7 +76,7 @@ const initialState = {
 
 
 export const noteLikeReducer = (state = initialState, action) => {
-  console.log(state);
+  //console.log(state);
   switch (action.type) {
     case LIKE_NOTE_SUCCESS:
       return {

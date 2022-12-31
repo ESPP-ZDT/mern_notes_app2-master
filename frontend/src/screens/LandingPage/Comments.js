@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../actions/commentsActions";
 
 function Comments({ noteId }) {
-  console.log(noteId)
+  //console.log(noteId)
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.commentsList.comments);
   const [content, setContent] = useState("");

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteNoteAction, listAllNotes, likeNote } from "../../actions/noteActions";
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
+import CommentList from "./CommentsList";
 
 const LandingPage = ({noteId}) => {
   const[isLike,setIsLike] = useState(false)
@@ -68,7 +69,14 @@ const handleUnlike = () =>{
                 </footer>
               </blockquote>
             </Card.Body>
+            <div>
+            <CommentList noteId={note._id} />
+            </div>
+            <div>
             <Comments noteId={note._id} />
+            </div>
+            
+            
           </Card>
         ))}
       </MainScreen>

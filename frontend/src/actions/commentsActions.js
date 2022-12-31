@@ -1,4 +1,4 @@
-import * as commentConstants from '../constants/commentConstants';
+import * as commentConstants from "../constants/commentConstants";
 import axios from "axios";
 
 export const fetchComments = (noteId) => async (dispatch) => {
@@ -6,9 +6,9 @@ export const fetchComments = (noteId) => async (dispatch) => {
     dispatch({
       type: commentConstants.COMMENTS_LIST_REQUEST,
     });
-
+    console.log(noteId)
     const { data } = await axios.get(`api/comments/${noteId}`);
-
+    console.log("Fetched comments", data);
     dispatch({
       type: commentConstants.COMMENTS_LIST_SUCCESS,
       payload: data,
@@ -25,7 +25,9 @@ export const fetchComments = (noteId) => async (dispatch) => {
   }
 };
 
-export const createComment = (content, noteId) => async (dispatch, getState) => {
+
+export const createComment =
+  (content, noteId) => async (dispatch, getState) => {
     try {
       dispatch({
         type: commentConstants.COMMENTS_CREATE_REQUEST,
@@ -34,19 +36,22 @@ export const createComment = (content, noteId) => async (dispatch, getState) => 
       const {
         userLogin: { userInfo },
       } = getState();
-  
+
       const config = {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-  
-      const { data } = await axios.post("api/comments/create", {
-        content,
-       noteId,
-        
-      }, config);
-  
+
+      const { data } = await axios.post(
+        "api/comments/create",
+        {
+          content,
+          noteId,
+        },
+        config
+      );
+
       dispatch({
         type: commentConstants.COMMENTS_CREATE_SUCCESS,
         payload: data,
@@ -62,38 +67,63 @@ export const createComment = (content, noteId) => async (dispatch, getState) => 
       });
     }
   };
-  
-export const updateComment = (commentId, content) => async (dispatch) => {
-  try {
-    dispatch({
-      type: commentConstants.COMMENTS_UPDATE_REQUEST,
-    });
 
-    const { data } = await axios.put(`api/comments/${commentId}`, { content });
+export const updateComment =
+  (commentId, content) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: commentConstants.COMMENTS_UPDATE_REQUEST,
+      });
 
-    dispatch({
-      type: commentConstants.COMMENTS_UPDATE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({
-      type: commentConstants.COMMENTS_UPDATE_FAIL,
-      payload: message,
-    });
-  }
-};
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-export const deleteComment = (commentId) => async (dispatch) => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `api/comments/${commentId}`,
+        { content },
+        config
+      );
+
+      dispatch({
+        type: commentConstants.COMMENTS_UPDATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: commentConstants.COMMENTS_UPDATE_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const deleteComment = (commentId) => async (dispatch, getState) => {
   try {
     dispatch({
       type: commentConstants.COMMENTS_DELETE_REQUEST,
     });
 
-    await axios.delete(`api/comments/${commentId}`);
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`api/comments/${commentId}`, config);
 
     dispatch({
       type: commentConstants.COMMENTS_DELETE_SUCCESS,

@@ -1,6 +1,7 @@
 const Comment = require("../models/commentsModel");
 const Note = require("../models/noteModel")
 const asyncHandler = require("express-async-handler");
+const mongoose = require('mongoose');
 
 const createComment = asyncHandler(async (req, res) => {
   const { content, noteId } = req.body;
@@ -27,7 +28,7 @@ const createComment = asyncHandler(async (req, res) => {
 });
 
 const getCommentsByNoteId = asyncHandler(async (req, res) => {
-  const comments = await Comment.find({ note: req.params.id });
+  const comments = await Comment.find({ note: mongoose.Types.ObjectId(req.params.id) });
   res.json(comments);
 });
 
