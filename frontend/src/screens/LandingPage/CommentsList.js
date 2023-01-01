@@ -10,7 +10,15 @@ const CommentList = ({ noteId }) => {
   useEffect(() => {
     dispatch(fetchComments(noteId));
   }, [dispatch]);
-//zrobic kolowrotek ktory co 15 sek odczytuje na nowo liste komentarzy
+
+  // Add this block of code to re-fetch the comments after a new one is added
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchComments(noteId));
+    }, 5000); // 15000 milliseconds = 15 seconds
+    return () => clearInterval(interval);
+  }, [dispatch, noteId]);
+
   return (
     <Card>
       <Card.Header>Comments</Card.Header>
