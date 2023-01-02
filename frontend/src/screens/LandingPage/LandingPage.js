@@ -56,7 +56,7 @@ const handleUnlike = () =>{
             </Card.Header>
             <Card.Body>
               <h4>
-                <bg>Category = {note.category}</bg>
+                Category = {note.category}
               </h4>
 
               <blockquote className="blockquote mb-0">

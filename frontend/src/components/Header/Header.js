@@ -28,7 +28,9 @@ function BasicExample({ setSearch }) {
       <Container>
         <Navbar.Brand>
           {" "}
-          <Link to="/">Revievlutionn</Link>{" "}
+          <Link to="/"><Button variant="secondary" size="xs">
+                  Revievlution
+                </Button></Link>{" "}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

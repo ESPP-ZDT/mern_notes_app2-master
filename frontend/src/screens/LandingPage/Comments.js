@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../actions/commentsActions";
+import './Comments.css'
 
 function Comments({ noteId }) {
   //console.log(noteId)

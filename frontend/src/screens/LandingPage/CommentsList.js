@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../actions/commentsActions";
 import { Card, ListGroup } from "react-bootstrap";
+import "./CommentsList.css"; // Add this line to import the CSS file
 
 const CommentList = ({ noteId }) => {
   const dispatch = useDispatch();
@@ -20,21 +21,25 @@ const CommentList = ({ noteId }) => {
   }, [dispatch, noteId]);
 
   return (
-    <Card>
-      <Card.Header>Comments</Card.Header>
+    <Card className="comment-list-card"> {/* Add a class to the Card element */}
+      <Card.Header className="comment-list-header"> {/* Add a class to the Card.Header element */}
+        Comments
+      </Card.Header>
       {comments && comments.length > 0 ? (
         <ListGroup variant="flush">
           {comments
             .filter((comment) => comment.note.toString() === noteId.toString())
             .map((comment) => (
-              <ListGroup.Item key={comment._id}>
-                <p>{comment.content}</p>
-                <p>By {comment.name}</p>
+              <ListGroup.Item key={comment._id} className="comment-item"> {/* Add a class to the ListGroup.Item element */}
+                <p className="comment-content">{comment.content}</p> {/* Add a class to the content paragraph */}
+                <p className="comment-author">By {comment.name}</p> {/* Add a class to the author paragraph */}
               </ListGroup.Item>
             ))}
         </ListGroup>
       ) : (
-        <Card.Body>No comments found</Card.Body>
+        <Card.Body className="no-comments-found"> {/* Add a class to the Card.Body element */}
+          No comments found
+        </Card.Body>
       )}
     </Card>
   );
