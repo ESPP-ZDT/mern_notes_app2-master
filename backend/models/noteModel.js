@@ -24,8 +24,11 @@ const noteSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    meanRating: {
+      type: Number,
+      default: 0
+    }
   },
-
   {
     timestamps: true,
   }
