@@ -7,6 +7,8 @@ import {
   import {
     composeWithDevTools
   } from "redux-devtools-extension";
+  import { rateNoteReducer } from "./reducers/ratingReducers";
+
   import {
     userLoginReducer,
     userRegisterReducer,
@@ -38,8 +40,10 @@ import {
     commentsList: commentListReducer,
     commentCreate: commentCreateReducer,
     commentUpdate: commentUpdateReducer,
-    commentDelete: commentDeleteReducer
+    commentDelete: commentDeleteReducer,
+    rating: rateNoteReducer,  // <-- add the rating reducer here
   });
+  
   
   const userInfoFromStorage = localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo"))
