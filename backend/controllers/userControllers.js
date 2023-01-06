@@ -54,7 +54,6 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -82,5 +81,4 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-
-module.exports = { registerUser,updateUserProfile, authUser };
+module.exports = { registerUser, updateUserProfile, authUser };
