@@ -57,6 +57,7 @@ const ratingSubmit = async (noteId, rating) => {
               <span className="reviewtitle">{note.title}</span>
               <RatingForm noteId={note._id} onSubmit={ratingSubmit} />
 
+              <h4>Mean Rating: {note.meanRating}</h4>
 
               <div>{note.likes.length} likes</div>
               <div><LikeButton
