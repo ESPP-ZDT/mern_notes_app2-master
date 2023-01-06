@@ -1,5 +1,5 @@
 const express = require("express");
-const { rateNote } = require("../controllers/notesControllers");
+const { rateNote } = require("../controllers/ratingControllers");
 const { protect } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
