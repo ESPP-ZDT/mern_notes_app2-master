@@ -56,7 +56,9 @@ const MyNotes = ({search}) => {
         {loading && <Loading />}
         {notes?.reverse().filter(
           filteredNote=>(
-            filteredNote.title.toLowerCase().includes(search.toLowerCase())
+            filteredNote.title.toLowerCase().includes(search.toLowerCase()),
+            filteredNote.content.toLowerCase().includes(search.toLowerCase())
+            
           )
         ).map((note) => (
           <Card key={note._id}>
