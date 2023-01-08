@@ -85,6 +85,7 @@ const ratingSubmit = async (noteId, rating) => {
                   Created on{" "}
                   <cite title="Source Title">
                     {note.createdAt.substring(0, 10)}
+                    <img src={note.pic}  className="profilePic" />
                   </cite>
                 </footer>
               </blockquote>
